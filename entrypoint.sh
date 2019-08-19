@@ -9,5 +9,8 @@ cp -r /ansible-playbook/* .
 echo "Setting ANSIBLE_CONFIG to $PWD/ansible.cfg to prevent issues on CI with other workdir than /ansible"
 export ANSIBLE_CONFIG=$PWD/ansible.cfg
 
+echo "Setting proper rights to $HOME/.ssh/*"
+chmod -R 400 $HOME/.ssh/*
+
 echo "Executing ansible-playbook site.yml --skip-tags=\"$SKIP_TAGS\" $OPTIONS $@"
 ansible-playbook site.yml --skip-tags="$SKIP_TAGS" $OPTIONS "$@"
