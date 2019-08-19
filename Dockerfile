@@ -3,8 +3,8 @@ FROM alpine:3.10.1
 WORKDIR /ansible
 
 # Setup base system + ansible
-RUN groupadd -g 999 ansible && \
-    useradd -r -u 999 -g ansible ansible && \
+RUN addgroup -S ansible && \
+    adduser -S ansible -G ansible && \
     apk upgrade \
         --no-cache && \
     apk add \
