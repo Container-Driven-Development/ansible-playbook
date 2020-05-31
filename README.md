@@ -6,7 +6,7 @@ Base docker image for 🎁 ansible playbooks
 
 See [./example](./example) folder
 
-1. Creare own [Dockerfile](./example/Dockerfile) based on this docker image `docker.io/devincan/ansible-playbook-base:v0.1`
+1. Creare own [Dockerfile](./example/Dockerfile) based on this docker image `docker.io/devincan/ansible-playbook-base:v0.4`
 2. Add your playbooks
 3. Build
 4. Run
