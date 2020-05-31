@@ -1,16 +1,26 @@
-#!/bin/sh
+#!/bin/bash
 
-echo "Moving base files ( /ansible-playbook-base/* ) to workdir ( $PWD )"
-cp -r /ansible-playbook-base/* .
+set -eox pipefail
+IFS=$'\n\t'
 
-echo "Moving playbook files ( /ansible-playbook/* ) to workdir ( $PWD )"
-cp -r /ansible-playbook/* .
+Y='\033[0;33m'
+NC='\033[0m'
 
-echo "Setting ANSIBLE_CONFIG to $PWD/ansible.cfg to prevent issues on CI with other workdir than /ansible"
-export ANSIBLE_CONFIG=$PWD/ansible.cfg
+mkdir -p ${CDD_PLAY_FOLDER}
 
-echo "Setting proper rights to $HOME/.ssh/*"
-chmod -R 400 $HOME/.ssh/*
+if [ "$(ls -A $CDD_DEBUG_FOLDER)" ]; then
 
-echo "Executing ansible-playbook site.yml --skip-tags=\"$SKIP_TAGS\" $OPTIONS $@"
-ansible-playbook site.yml --skip-tags="$SKIP_TAGS" $OPTIONS "$@"
+    echo -e "${Y}Moving debug files '${CDD_DEBUG_FOLDER}/*' to workdir '${CDD_PLAY_FOLDER}/'${NC}"
+    cp -r ${CDD_DEBUG_FOLDER}/* ${CDD_PLAY_FOLDER}/
+
+fi
+
+if [ "$(ls -A $CDD_BAKED_FOLDER)" ]; then
+
+echo -e "${Y}Moving baked files '${CDD_BAKED_FOLDER}/*' to workdir '${CDD_PLAY_FOLDER}/'${NC}"
+cp -r ${CDD_BAKED_FOLDER}/* ${CDD_PLAY_FOLDER}/
+
+fi
+
+cd ${CDD_PLAY_FOLDER}
+ansible-playbook site.yml --skip-tags="${ANSIBLE_PLAYBOOK_CMD_SKIP_TAGS}" "${ANSIBLE_PLAYBOOK_CMD_OPTIONS}" "${@}"
