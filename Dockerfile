@@ -1,4 +1,6 @@
-FROM alpine:3.11.6
+FROM alpine:3.12.0
+
+ARG ANSIBLE_VERSION=2.9.9-r0
 
 ENV ANSIBLE_SSH_CONTROL_PATH /dev/shm/cp%%h-%%p-%%r
 ENV ANSIBLE_INVENTORY inventory.yml
@@ -31,7 +33,8 @@ RUN addgroup -S ${CCD_GROUP} && \
 RUN apk upgrade \
         --no-cache && \
     apk add \
-        ansible=2.9.6-r0 \
+        ansible=${ANSIBLE_VERSION} \
+        py-pip \
         bash \
         curl \
         libressl \
@@ -43,8 +46,8 @@ RUN apk upgrade \
 
 COPY requirements.txt /var/run/requirements.txt
 
-RUN pip3 install --upgrade pip && \
-    pip3 install --no-cache-dir -r /var/run/requirements.txt
+# RUN pip3 install --upgrade pip && \
+#     pip3 install --no-cache-dir -r /var/run/requirements.txt
 
 RUN mkdir -p ${CDD_DEBUG_FOLDER} ${CDD_BAKED_FOLDER} ${CDD_PLAY_FOLDER} && chown -R ${CCD_USER}:${CCD_GROUP} ${CDD_BASE_FOLDER}
 
