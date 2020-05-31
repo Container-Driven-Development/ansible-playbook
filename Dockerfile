@@ -42,8 +42,8 @@ RUN apk upgrade \
         git \
         openssh-client \
         sshpass \
+        tzdata \
         --no-cache
-
 COPY requirements.txt /var/run/requirements.txt
 
 # RUN pip3 install --upgrade pip && \

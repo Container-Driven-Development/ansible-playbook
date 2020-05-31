@@ -1,4 +1,4 @@
-FROM docker.io/devincan/ansible-playbook-base:v0.1
+FROM docker.io/devincan/ansible-playbook-base:v0.4
 
 COPY --chown=ansible:ansible ./*.yml /ansible-playbook/
 

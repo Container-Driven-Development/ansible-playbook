@@ -16,13 +16,19 @@ Just go ahead and try [run](#run-wrapped-playbook) this example docker image aga
 2. Run this docker image with mounted inventory.yml and id_rsa key from you local or CI
 3. Profit 🎩
 
+## Build wrapped playbook
+
+```
+docker build -t docker.io/devincan/ansible-playbook-example:dev .
+```
+
 ## Run wrapped playbook
 
 ```
 $ docker run -it \
 -v $HOME/.ssh/id_rsa:/home/ansible/.ssh/id_rsa \
 -v /path/to/inventory.yml:/ansible/inventory.yml \
-docker.io/devincan/ansible-playbook-example:v0.1 \
+docker.io/devincan/ansible-playbook-example:dev \
 -v -e global_test_variable=test
 ```
 
@@ -51,6 +57,6 @@ $ docker run -it \
 -v $PWD:/ansible-playbook \
 -v $HOME/.ssh/id_rsa:/home/ansible/.ssh/id_rsa \
 -v /path/to/inventory.yml:/ansible/inventory.yml \
-docker.io/devincan/ansible-playbook-example:v0.1 \
+docker.io/devincan/ansible-playbook-example:dev \
 -v -e global_test_variable=test
 ```
