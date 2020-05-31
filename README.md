@@ -45,6 +45,6 @@ See [./example](./example) folder
 
 2. Add [entrypoint.sh](entrypoint.sh)
 
-   This entrypoint will copy baked roles, playbooks and other files from `/ansible-baked` to `/ansible` workdir. Then it will run site.yml playbook.
+   This entrypoint will copy baked roles, playbooks and other files from `/ansible/baked` to `/ansible` workdir. Then it will run site.yml playbook.
 
 3. Add essential Python/Ansible dependencies listed in [requirements.txt](./requirements.txt) 
